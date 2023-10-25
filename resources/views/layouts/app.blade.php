@@ -40,6 +40,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
+                        <!--Creacion de un nuevo  usuario -->
                         @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="">{{ __('Login') }}</a>
