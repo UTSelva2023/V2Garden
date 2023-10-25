@@ -42,6 +42,7 @@
                         <!-- Authentication Links -->
                         <!--Creacion de un nuevo  usuario -->
                         <!--Creación del usuario completado-->
+                        <!--Correcciones realizadas en la creacion de usuario-->
                         @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="">{{ __('Login') }}</a>
