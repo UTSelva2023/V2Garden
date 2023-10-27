@@ -3,7 +3,7 @@
 @section('template_title')
     Create Flore
 @endsection
-
+//Prueba
 @section('content')
     <section class="content container-fluid">
         <div class="row">
