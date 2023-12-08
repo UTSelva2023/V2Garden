@@ -1,25 +1,40 @@
-name: Build
+name: Despliegue de Prueba
 
 on:
   push:
     branches:
       - main
+
 jobs:
-  build:
-    name: Build
+  deploy:
     runs-on: ubuntu-latest
-    permissions: read-all
+
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - uses: sonarsource/sonarqube-scan-action@master
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-      # If you wish to fail your job when the Quality Gate is red, uncomment the
-      # following lines. This would typically be used to fail a deployment.
-      # - uses: sonarsource/sonarqube-quality-gate-action@master
-      #   timeout-minutes: 5
-      #   env:
-      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    - name: Checkout del código
+      uses: actions/checkout@v2
+
+    - name: Configurar ambiente
+      run: |
+        # Instala las dependencias de Laravel
+        composer install --no-dev
+
+    - name: Configurar archivo .env
+      run: |
+        cp .env.example .env
+        php artisan key:generate
+
+    - name: Ejecutar pruebas
+      run: php artisan test
+
+    - name: Desplegar en GitHub Pages
+      run: |
+        # Agrega aquí los comandos para desplegar tu aplicación en GitHub Pages
+        # Puedes generar un directorio de construcción y usar GitHub Pages para desplegar HTML, CSS, y JS
+        php artisan build
+        mkdir gh-pages
+        cp -r * gh-pages/
+        git checkout gh-pages
+        git add .
+        git commit -m "Despliegue de prueba"
+        git push origin gh-pages
+
